@@ -1,40 +1,50 @@
 import React from 'react';
+
 import {
   ChakraProvider,
   Box,
   Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
+  Switch,
+  Flex,
   theme,
 } from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+
+import useDisclosure from './hooks/useDisclosure';
+import MainHeader from './components/MainHeader';
+
+import Panel from './components/Panel';
+import StateBoard from './components/StateBoard';
 
 function App() {
+  const { isOpen: redOpen, onOpen, onClose, onToggle } = useDisclosure();
+
   return (
     <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
-          </VStack>
-        </Grid>
-      </Box>
+      <Flex direction="column" bg="#FCFCFC" minH="100vh">
+        <MainHeader />
+        <Flex justify="center" mt="24px">
+          <Flex
+            w="1080px"
+            textAlign="center"
+            fontSize="xl"
+            justify="space-between"
+          >
+            <Panel />
+            <Panel />
+            <Panel />
+          </Flex>
+        </Flex>
+        <Flex justify="center" mt="24px">
+          <Flex
+            w="1080px"
+            textAlign="center"
+            fontSize="xl"
+            justify="space-between"
+          >
+            <StateBoard />
+          </Flex>
+        </Flex>
+      </Flex>
     </ChakraProvider>
   );
 }
